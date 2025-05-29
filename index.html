@@ -238,9 +238,10 @@
 <script>
   // MSAL Config
   const msalConfig = {
-    auth: {
-      clientId: "SEU_CLIENT_ID_AQUI",
-      redirectUri: window.location.origin
+     auth: {
+        clientId: "9f415c84-2708-4ca2-8aa8-69641dd097d0",
+        authority: "https://login.microsoftonline.com/62345b7a-94ed-4671-b8f2-624e28c8253a",
+        redirectUri: "https://rafaelpinto1.github.io/checklist-gsilva/"
     }
   };
   const msalInstance = new msal.PublicClientApplication(msalConfig);

@@ -1,10 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Checklist SharePoint</title>
-  </head>
-  <body>
-    <h1>Formulário de Checklist</h1>
-    <p>Em breve este formulário enviará dados para uma lista do SharePoint.</p>
-  </body>
-</html>
+<head>
+  <meta charset="utf-8" />
+  <title>Checklist GSilva</title>
+  <script src="https://alcdn.msauth.net/browser/2.37.0/js/msal-browser.min.js"></script>
+</head>
+<body>
+  <h1>Checklist - GSilva Logística</h1>
+
+  <form id="checklistForm">
+    <label>Título: <input type="text" id="titulo" required /></label><br />
+    <label>Motorista: <input type="text" id="motorista" required /></label><br />
+    <label>Placa do Veículo: <input type="text" id="placa" required /></label><br />
+    <label>Combustível OK: <input type="checkbox" id="combustivel" /></label><br />
+    <label>Pneus OK: <input type="checkbox" id="pneus" /></label><br />
+    <label>Data/Hora: <input type="datetime-local" id="datahora" required /></label><br /><br />
+    <button type="submit">Enviar</button>
+  </form>
+
+  <div id="status"></div>
+
+  <script>
+    const msalConfig = {
+      auth: {
+        clientId: "9f415c84-2708-4ca2-8aa8-69641dd097d0",
+        authority: "https://login.microsoftonline.com/62345b7a-94ed-4671-b8f2-624e28c8253a",
+        redirectUri: "https://rafaelpinto1.github.io/checklist-gsilva/"
+      }
+    };
+
+    const msalInstance = new msal.PublicClientApplication(msalConfig);
+    const loginRequest = { scopes: ["Sites.ReadWrite.All", "User.Read"] };
+    let accessToken = "";
+
+    async function signIn() {
+      try {
+        const response = await msalInstance.loginPopup(loginRequest);
+        const tokenResponse = await msalInstance.acquireTokenSilent(loginRequest);
+        accessToken = tokenResponse.accessToken;
+      } catch (error) {
+        document.getElementById("status").innerText = "Erro no login: " + error;
+      }
+    }
+
+    async function sendToSharePoint(data) {
+      const siteIdResp = await fetch("https://graph.microsoft.com/v1.0/sites/gsilvainfo.sharepoint.com:/sites/Ope", {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      });
+      const site = await siteIdResp.json();
+
+      const listUrl = `https://graph.microsoft.com

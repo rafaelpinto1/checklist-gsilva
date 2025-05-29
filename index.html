@@ -96,11 +96,13 @@
     <input type="text" id="placaSider" required />
 
     <h3>Checklist Motorista (Responda true ou false):</h3>
-    <label for="motoristaTrajado">Motorista e ajudantes devidamente trajados? (MotoristaTrajado)</label>
-    <select id="motoristaTrajado" required>
-      <option value="true">true</option>
-      <option value="false">false</option>
-    </select>
+   <label for="motoristaTrajado">Motorista e ajudantes devidamente trajados?</label>
+      <input list="opcoesTrajado" id="motoristaTrajado" name="motoristaTrajado" required placeholder="Escolha uma opção">
+      <datalist id="opcoesTrajado">
+      <option value="true">
+      <option value="false">
+      </datalist>
+
 
     <label for="sinaisSonolencia">Sinais de sonolência/embriaguez? (SinaisSonolencia)</label>
     <select id="sinaisSonolencia" required>

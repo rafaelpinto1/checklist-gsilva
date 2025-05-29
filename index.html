@@ -16,10 +16,10 @@
       align-items: center;
     }
     h1 {
-      color: #d71920;
+      color: #2a4b7c;
     }
     #loginBtn {
-      background-color: #d71920;
+      background-color: #2a4b7c;
       color: white;
       border: none;
       padding: 12px 20px;
@@ -33,7 +33,7 @@
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 100%;
+      width: 90%;
       max-width: 600px;
       margin-top: 20px;
     }
@@ -50,8 +50,8 @@
       border-radius: 4px;
     }
     button[type="submit"] {
-      background-color: #ffc20e;
-      color: black;
+      background-color: #28a745;
+      color: white;
       margin-top: 20px;
       padding: 10px;
       font-size: 16px;
@@ -65,189 +65,158 @@
       font-size: 14px;
       color: #444;
     }
-    video, canvas {
+    #cameraContainer {
       margin-top: 12px;
+      text-align: center;
+    }
+    video, canvas {
       width: 100%;
-      max-height: 300px;
+      max-width: 300px;
+      margin-top: 10px;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
 
-  <h1>Checklist GSilva</h1>
+<h1>Checklist GSilva</h1>
 
-  <button id="loginBtn">Login com Microsoft</button>
+<button id="loginBtn">Login com Microsoft</button>
 
-  <form id="formChecklist">
-    <label for="titulo">Título:</label>
-    <input type="text" id="titulo" required>
+<form id="formChecklist">
+  <label for="titulo">Título:</label>
+  <input type="text" id="titulo" required>
 
-    <label for="motorista">Motorista:</label>
-    <input type="text" id="motorista" required>
+  <label for="motorista">Motorista:</label>
+  <input type="text" id="motorista" required>
 
-    <label for="matricula">Matrícula:</label>
-    <input type="text" id="matricula" required>
+  <label for="placa">Placa do Veículo:</label>
+  <input type="text" id="placa" required>
 
-    <label for="placa">Placa do Veículo:</label>
-    <input type="text" id="placa" required>
+  <!-- CAMPOS DE SELEÇÃO -->
+  <div id="checkboxFields"></div>
 
-    <label for="datahora">Data e Hora:</label>
-    <input type="datetime-local" id="datahora" required>
+  <label for="observacoes">Observações:</label>
+  <textarea id="observacoes" rows="3"></textarea>
 
-    <label for="trajeAdequado">Traje Adequado:</label>
-    <select id="trajeAdequado">
-      <option value="Sim">Sim</option>
-      <option value="Não">Não</option>
-    </select>
-
-    <label for="sonolencia">Sinais de Sonolência:</label>
-    <select id="sonolencia">
-      <option value="Não">Não</option>
-      <option value="Sim">Sim</option>
-    </select>
-
-    <label for="cursoMOPP">Curso MOPP Válido:</label>
-    <select id="cursoMOPP">
-      <option value="Sim">Sim</option>
-      <option value="Não">Não</option>
-    </select>
-
-    <label for="cnhOk">CNH Compatível:</label>
-    <select id="cnhOk">
-      <option value="Sim">Sim</option>
-      <option value="Não">Não</option>
-    </select>
-
-    <label for="orientado">Orientado sobre direção segura:</label>
-    <select id="orientado">
-      <option value="Sim">Sim</option>
-      <option value="Não">Não</option>
-    </select>
-
-    <label for="observacoes">Observações:</label>
-    <textarea id="observacoes" rows="3"></textarea>
-
-    <label>Selfie do Motorista:</label>
+  <!-- SELFIE MOTORISTA -->
+  <label>Selfie do Motorista:</label>
+  <div id="cameraContainer">
     <video id="video" autoplay></video>
-    <button type="button" onclick="tirarSelfie()">Tirar Selfie</button>
     <canvas id="canvas" style="display:none;"></canvas>
+    <button type="button" onclick="tirarSelfie()">Tirar Selfie</button>
+  </div>
 
-    <button type="submit">Enviar Checklist</button>
-  </form>
+  <input type="hidden" id="selfieData">
 
-  <p id="status"></p>
+  <button type="submit">Enviar Checklist</button>
+</form>
 
-  <script>
-    const msalConfig = {
-      auth: {
-        clientId: "9f415c84-2708-4ca2-8aa8-69641dd097d0",
-        authority: "https://login.microsoftonline.com/62345b7a-94ed-4671-b8f2-624e28c8253a",
-        redirectUri: "https://rafaelpinto1.github.io/checklist-gsilva/"
-      }
-    };
+<p id="status"></p>
 
-    const msalInstance = new msal.PublicClientApplication(msalConfig);
-    const loginRequest = {
-      scopes: ["User.Read", "Sites.ReadWrite.All"]
-    };
+<script>
+  const camposSimNao = [
+    "MotoristaTrajado", "SinaisSonolencia", "CursoMOPPValido", "CNHCompativel", "OrientacaoDirecaoSegura",
+    "FreioFunciona", "SistemaEletricoFunciona", "EngateMangueiraSanfonada", "PressaoPneusOk", "PneusConservacaoOk",
+    "EstepeConservacaoOk", "ParafusosRodasApertados", "ValvulasArSemVazamento", "FaixasRefletivasBoas",
+    "MolasBolasBalancasOk", "DocumentacaoTransporteOk", "PlacaSiderCondicoes", "AcessoriosCargaOk",
+    "LonasSiderDefeito", "CatracasSiderFunciona", "AssoalhoSiderCondicoes", "SiderPossuiColunaTravessa",
+    "PortaSiderDefeito", "PinoReiQuintaRoGaviaoOk", "VeiculoLimpo", "LimpezaAntesCarregamento",
+    "PastaDocumentosNoCavalo", "ControlePragasValido", "VeiculoDedicadoControle"
+  ];
 
-    let accessToken = "";
-    let selfieBase64 = "";
+  const checkboxContainer = document.getElementById("checkboxFields");
+  camposSimNao.forEach(field => {
+    const label = document.createElement("label");
+    label.textContent = field.replace(/([A-Z])/g, ' $1').trim() + ":";
+    const select = document.createElement("select");
+    select.id = field;
+    select.innerHTML = `<option value="Sim">Sim</option><option value="Não">Não</option>`;
+    checkboxContainer.appendChild(label);
+    checkboxContainer.appendChild(select);
+  });
 
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => {
-        document.getElementById("video").srcObject = stream;
+  const msalConfig = {
+    auth: {
+      clientId: "9f415c84-2708-4ca2-8aa8-69641dd097d0",
+      authority: "https://login.microsoftonline.com/62345b7a-94ed-4671-b8f2-624e28c8253a",
+      redirectUri: "https://rafaelpinto1.github.io/checklist-gsilva/"
+    }
+  };
+  const msalInstance = new msal.PublicClientApplication(msalConfig);
+  const loginRequest = { scopes: ["User.Read", "Sites.ReadWrite.All"] };
+  let accessToken = "";
+
+  document.getElementById("loginBtn").addEventListener("click", async () => {
+    try {
+      const loginResponse = await msalInstance.loginPopup(loginRequest);
+      msalInstance.setActiveAccount(loginResponse.account);
+      const tokenResponse = await msalInstance.acquireTokenSilent(loginRequest);
+      accessToken = tokenResponse.accessToken;
+
+      document.getElementById("loginBtn").style.display = "none";
+      document.getElementById("formChecklist").style.display = "block";
+      document.getElementById("status").innerText = "Logado como: " + loginResponse.account.username;
+
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      document.getElementById("video").srcObject = stream;
+    } catch (err) {
+      document.getElementById("status").innerText = "Erro no login: " + err.message;
+    }
+  });
+
+  function tirarSelfie() {
+    const video = document.getElementById("video");
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext("2d");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0);
+    const dataURL = canvas.toDataURL("image/png");
+    document.getElementById("selfieData").value = dataURL;
+  }
+
+  document.getElementById("formChecklist").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const campos = {};
+    campos["Title"] = document.getElementById("titulo").value;
+    campos["Motorista"] = document.getElementById("motorista").value;
+    campos["PlacaVeiculo"] = document.getElementById("placa").value;
+    campos["Observacoes"] = document.getElementById("observacoes").value;
+    campos["SelfieMotorista"] = document.getElementById("selfieData").value;
+
+    camposSimNao.forEach(field => {
+      campos[field] = document.getElementById(field).value;
+    });
+
+    try {
+      const siteResp = await fetch("https://graph.microsoft.com/v1.0/sites/gsilvainfo.sharepoint.com:/sites/Ope", {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      });
+      const site = await siteResp.json();
+
+      const postResp = await fetch(`https://graph.microsoft.com/v1.0/sites/${site.id}/lists/ChecklistMotoristas/items`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ fields: campos })
       });
 
-    function tirarSelfie() {
-      const video = document.getElementById("video");
-      const canvas = document.getElementById("canvas");
-      canvas.style.display = 'block';
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      const context = canvas.getContext("2d");
-      context.drawImage(video, 0, 0);
-      selfieBase64 = canvas.toDataURL("image/jpeg");
+      if (postResp.ok) {
+        document.getElementById("status").innerText = "✅ Checklist enviado com sucesso!";
+        document.getElementById("formChecklist").reset();
+      } else {
+        const error = await postResp.text();
+        document.getElementById("status").innerText = "❌ Erro ao enviar: " + error;
+      }
+    } catch (err) {
+      document.getElementById("status").innerText = "❌ Erro inesperado: " + err.message;
     }
-
-    document.getElementById("loginBtn").addEventListener("click", async () => {
-      try {
-        const loginResponse = await msalInstance.loginPopup(loginRequest);
-        msalInstance.setActiveAccount(loginResponse.account);
-        const tokenResponse = await msalInstance.acquireTokenSilent(loginRequest);
-        accessToken = tokenResponse.accessToken;
-
-        document.getElementById("loginBtn").style.display = "none";
-        document.getElementById("formChecklist").style.display = "block";
-        document.getElementById("status").innerText = "Logado como: " + loginResponse.account.username;
-      } catch (err) {
-        document.getElementById("status").innerText = "Erro no login: " + err.message;
-        console.error(err);
-      }
-    });
-
-    document.getElementById("formChecklist").addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const dados = {
-        titulo: document.getElementById("titulo").value,
-        motorista: document.getElementById("motorista").value,
-        matricula: document.getElementById("matricula").value,
-        placa: document.getElementById("placa").value,
-        datahora: document.getElementById("datahora").value,
-        trajeAdequado: document.getElementById("trajeAdequado").value,
-        sonolencia: document.getElementById("sonolencia").value,
-        cursoMOPP: document.getElementById("cursoMOPP").value,
-        cnhOk: document.getElementById("cnhOk").value,
-        orientado: document.getElementById("orientado").value,
-        observacoes: document.getElementById("observacoes").value,
-        selfie: selfieBase64
-      };
-
-      try {
-        const siteResp = await fetch("https://graph.microsoft.com/v1.0/sites/gsilvainfo.sharepoint.com:/sites/Ope", {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        });
-        const site = await siteResp.json();
-
-        const postResp = await fetch(`https://graph.microsoft.com/v1.0/sites/${site.id}/lists/ChecklistMotoristas/items`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            fields: {
-              Title: dados.titulo,
-              Motorista: dados.motorista,
-              Matricula: dados.matricula,
-              PlacaVeiculo: dados.placa,
-              DataHora: dados.datahora,
-              TrajeAdequado: dados.trajeAdequado,
-              Sonolencia: dados.sonolencia,
-              CursoMOPP: dados.cursoMOPP,
-              CNH_OK: dados.cnhOk,
-              Orientado: dados.orientado,
-              Observacoes: dados.observacoes,
-              SelfieMotorista: dados.selfie
-            }
-          })
-        });
-
-        if (postResp.ok) {
-          document.getElementById("status").innerText = "✅ Checklist enviado com sucesso!";
-          document.getElementById("formChecklist").reset();
-        } else {
-          const error = await postResp.text();
-          document.getElementById("status").innerText = "❌ Erro ao enviar: " + error;
-          console.error(error);
-        }
-      } catch (err) {
-        document.getElementById("status").innerText = "❌ Erro inesperado: " + err.message;
-        console.error(err);
-      }
-    });
-  </script>
+  });
+</script>
 
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Checklist GSilva Completo</title>
+  <title>Checklist GSilva</title>
   <script src="https://alcdn.msauth.net/browser/2.37.0/js/msal-browser.min.js"></script>
   <style>
     body {
@@ -11,12 +11,13 @@
       background: #f4f4f4;
       margin: 0;
       padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
     }
     h1 {
       color: #2a4b7c;
+      text-align: center;
     }
     #loginBtn {
       background-color: #2a4b7c;
@@ -26,42 +27,40 @@
       font-size: 16px;
       border-radius: 6px;
       cursor: pointer;
-      margin-bottom: 20px;
+      display: block;
+      margin: 20px auto;
     }
     form {
-      background: white;
+      background-color: white;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 350px;
-      max-height: 90vh;
-      overflow-y: auto;
     }
     label {
       display: block;
-      margin-top: 12px;
+      margin-top: 15px;
       font-weight: bold;
     }
     input[type="text"],
     input[type="date"],
     input[type="time"],
-    select,
-    textarea {
+    textarea,
+    select {
       width: 100%;
       padding: 8px;
-      margin-top: 4px;
+      margin-top: 5px;
       border: 1px solid #ccc;
       border-radius: 4px;
       font-size: 14px;
-      box-sizing: border-box;
     }
     textarea {
       resize: vertical;
+      height: 80px;
     }
     button[type="submit"] {
       background-color: #28a745;
       color: white;
-      margin-top: 20px;
+      margin-top: 25px;
       padding: 12px;
       font-size: 16px;
       border: none;
@@ -70,328 +69,256 @@
       cursor: pointer;
     }
     #status {
-      margin-top: 10px;
+      margin-top: 15px;
       font-size: 14px;
       color: #444;
-      min-height: 18px;
-    }
-    #selfieContainer {
-      margin-top: 12px;
       text-align: center;
-    }
-    #videoSelfie {
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-    }
-    #btnTakePhoto {
-      margin-top: 6px;
-      padding: 8px 12px;
-      background-color: #2a4b7c;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    #canvasSelfie {
-      display: none;
     }
   </style>
 </head>
 <body>
 
-  <h1>Checklist GSilva Completo</h1>
+  <h1>Checklist GSilva</h1>
 
   <button id="loginBtn">Login com Microsoft</button>
 
   <form id="formChecklist" style="display:none;">
-    <!-- Campos básicos -->
-    <label for="titulo">Título do checklist:</label>
-    <input type="text" id="titulo" required placeholder="Ex: Checklist Frota 29/05"/>
+    <label for="titulo">Título (Title):</label>
+    <input type="text" id="titulo" required placeholder="ex: Checklist Frota 29/05" />
 
-    <label for="nomeCompleto">Nome completo do motorista:</label>
+    <label for="nomeCompleto">Nome Completo do Motorista (NomeCompleto):</label>
     <input type="text" id="nomeCompleto" required />
 
-    <label for="matricula">Matrícula do motorista:</label>
+    <label for="matricula">Matrícula do Motorista (Matricula):</label>
     <input type="text" id="matricula" required />
 
-    <label for="data">Data da inspeção:</label>
+    <label for="data">Data da Inspeção (Data):</label>
     <input type="date" id="data" required />
 
-    <label for="horario">Horário da inspeção:</label>
+    <label for="horario">Horário da Inspeção (Horario):</label>
     <input type="time" id="horario" required />
 
-    <label for="placaSider">Placa do sider:</label>
+    <label for="placaSider">Placa do Sider (PlacaSider):</label>
     <input type="text" id="placaSider" required />
 
-    <!-- Checklist Motorista (1 a 5) -->
-    <h3>Checklist Motorista</h3>
-    <label for="MotoristaTrajado">Motorista e ajudantes devidamente trajados?</label>
-    <select id="MotoristaTrajado" required><option>Sim</option><option>Não</option></select>
+    <h3>Checklist Motorista (Responda Sim ou Não):</h3>
+    <label for="motoristaTrajado">Motorista e ajudantes devidamente trajados? (MotoristaTrajado)</label>
+    <select id="motoristaTrajado" required>
+      <option value="Sim">Sim</option>
+      <option value="Não">Não</option>
+    </select>
 
-    <label for="SinaisSonolencia">Sinais de sonolência/embriaguez?</label>
-    <select id="SinaisSonolencia" required><option>Sim</option><option>Não</option></select>
+    <label for="sinaisSonolencia">Sinais de sonolência/embriaguez? (SinaisSonolencia)</label>
+    <select id="sinaisSonolencia" required>
+      <option value="Sim">Sim</option>
+      <option value="Não">Não</option>
+    </select>
 
-    <label for="CursoMOPPValido">Curso MOPP válido?</label>
-    <select id="CursoMOPPValido" required><option>Sim</option><option>Não</option></select>
+    <label for="cursoMOPPValido">Curso MOPP válido? (CursoMOPPValido)</label>
+    <select id="cursoMOPPValido" required>
+      <option value="Sim">Sim</option>
+      <option value="Não">Não</option>
+    </select>
 
-    <label for="CNHCompativel">CNH compatível?</label>
-    <select id="CNHCompativel" required><option>Sim</option><option>Não</option></select>
+    <label for="cnhCompativel">CNH compatível? (CNHCompativel)</label>
+    <select id="cnhCompativel" required>
+      <option value="Sim">Sim</option>
+      <option value="Não">Não</option>
+    </select>
 
-    <label for="OrientacaoDirecaoSegura">Motorista orientado?</label>
-    <select id="OrientacaoDirecaoSegura" required><option>Sim</option><option>Não</option></select>
+    <label for="orientacaoDirecaoSegura">Motorista orientado? (OrientacaoDirecaoSegura)</label>
+    <select id="orientacaoDirecaoSegura" required>
+      <option value="Sim">Sim</option>
+      <option value="Não">Não</option>
+    </select>
 
-    <!-- Checklist Sider (6 a 34) -->
-    <h3>Checklist Sider</h3>
-    <label for="FreioFunciona">Freio funcionando corretamente?</label>
-    <select id="FreioFunciona" required><option>Sim</option><option>Não</option></select>
+    <h3>Checklist Sider (Sim/Não):</h3>
+    <label for="freioFunciona">Freio funcionando corretamente? (FreioFunciona)</label>
+    <select id="freioFunciona" required><option>Sim</option><option>Não</option></select>
 
-    <label for="SistemaEletricoFunciona">Sistema elétrico (lanternas, setas etc.)?</label>
-    <select id="SistemaEletricoFunciona" required><option>Sim</option><option>Não</option></select>
+    <label for="sistemaEletricoFunciona">Sistema elétrico (lanternas, setas etc.)? (SistemaEletricoFunciona)</label>
+    <select id="sistemaEletricoFunciona" required><option>Sim</option><option>Não</option></select>
 
-    <label for="EngateMangueiraSanfonada">Engate mangueira sanfonada?</label>
-    <select id="EngateMangueiraSanfonada" required><option>Sim</option><option>Não</option></select>
+    <label for="engateMangueiraSanfonada">Engate mangueira sanfonada? (EngateMangueiraSanfonada)</label>
+    <select id="engateMangueiraSanfonada" required><option>Sim</option><option>Não</option></select>
 
-    <label for="PressaoPneusOk">Pressão dos pneus e estepes OK?</label>
-    <select id="PressaoPneusOk" required><option>Sim</option><option>Não</option></select>
+    <label for="pressaoPneusOk">Pressão dos pneus e estepes OK? (PressaoPneusOk)</label>
+    <select id="pressaoPneusOk" required><option>Sim</option><option>Não</option></select>
 
-    <label for="PneusConservacaoOk">Pneus em bom estado?</label>
-    <select id="PneusConservacaoOk" required><option>Sim</option><option>Não</option></select>
+    <label for="pneusConservacaoOk">Pneus em bom estado? (PneusConservacaoOk)</label>
+    <select id="pneusConservacaoOk" required><option>Sim</option><option>Não</option></select>
 
-    <label for="EstepeConservacaoOk">Estepe em bom estado?</label>
-    <select id="EstepeConservacaoOk" required><option>Sim</option><option>Não</option></select>
+    <label for="estepeConservacaoOk">Estepe em bom estado? (EstepeConservacaoOk)</label>
+    <select id="estepeConservacaoOk" required><option>Sim</option><option>Não</option></select>
 
-    <label for="ParafusosRodasApertados">Parafusos apertados corretamente?</label>
-    <select id="ParafusosRodasApertados" required><option>Sim</option><option>Não</option></select>
+    <label for="parafusosRodasApertados">Parafusos apertados corretamente? (ParafusosRodasApertados)</label>
+    <select id="parafusosRodasApertados" required><option>Sim</option><option>Não</option></select>
 
-    <label for="ValvulasArSemVazamento">Válvulas de ar e conexões sem vazamento?</label>
-    <select id="ValvulasArSemVazamento" required><option>Sim</option><option>Não</option></select>
+    <label for="valvulasArSemVazamento">Válvulas de ar e conexões sem vazamento? (ValvulasArSemVazamento)</label>
+    <select id="valvulasArSemVazamento" required><option>Sim</option><option>Não</option></select>
 
-    <label for="FaixasRefletivasBoas">Faixas refletivas em boas condições?</label>
-    <select id="FaixasRefletivasBoas" required><option>Sim</option><option>Não</option></select>
+    <label for="faixasRefletivasBoas">Faixas refletivas em boas condições? (FaixasRefletivasBoas)</label>
+    <select id="faixasRefletivasBoas" required><option>Sim</option><option>Não</option></select>
 
-    <label for="MolasBolasBalancasOk">Molas, bolas, balanças ok?</label>
-    <select id="MolasBolasBalancasOk" required><option>Sim</option><option>Não</option></select>
+    <label for="molasBolasBalancasOk">Molas, bolas, balanças ok? (MolasBolasBalancasOk)</label>
+    <select id="molasBolasBalancasOk" required><option>Sim</option><option>Não</option></select>
 
-    <label for="DocumentacaoTransporteOk">Documentação necessária OK?</label>
-    <select id="DocumentacaoTransporteOk" required><option>Sim</option><option>Não</option></select>
+    <label for="documentacaoTransporteOk">Documentação necessária OK? (DocumentacaoTransporteOk)</label>
+    <select id="documentacaoTransporteOk" required><option>Sim</option><option>Não</option></select>
 
-    <label for="PlacaSiderCondicoes">Placa do sider em boas condições?</label>
-    <select id="PlacaSiderCondicoes" required><option>Sim</option><option>Não</option></select>
+    <label for="placaSiderCondicoes">Placa do sider em boas condições? (PlacaSiderCondicoes)</label>
+    <select id="placaSiderCondicoes" required><option>Sim</option><option>Não</option></select>
 
-    <label for="AcessoriosCargaOk">Acessórios de acondicionamento em boas condições?</label>
-    <select id="AcessoriosCargaOk" required><option>Sim</option><option>Não</option></select>
+    <label for="acessoriosCargaOk">Acessórios de acondicionamento em boas condições? (AcessoriosCargaOk)</label>
+    <select id="acessoriosCargaOk" required><option>Sim</option><option>Não</option></select>
 
-    <label for="LonasSiderDefeito">Lonas da sider com defeito?</label>
-    <select id="LonasSiderDefeito" required><option>Sim</option><option>Não</option></select>
+    <label for="lonasSiderDefeito">Lonas da sider com defeito? (LonasSiderDefeito)</label>
+    <select id="lonasSiderDefeito" required><option>Sim</option><option>Não</option></select>
 
-    <label for="CatracasSiderFunciona">Catracas funcionando?</label>
-    <select id="CatracasSiderFunciona" required><option>Sim</option><option>Não</option></select>
+    <label for="catracasSiderFunciona">Catracas funcionando? (CatracasSiderFunciona)</label>
+    <select id="catracasSiderFunciona" required><option>Sim</option><option>Não</option></select>
 
-    <label for="AssoalhoSiderCondicoes">Assoalho em boas condições?</label>
-    <select id="AssoalhoSiderCondicoes" required><option>Sim</option><option>Não</option></select>
+    <label for="assoalhoSiderCondicoes">Assoalho em boas condições? (AssoalhoSiderCondicoes)</label>
+    <select id="assoalhoSiderCondicoes" required><option>Sim</option><option>Não</option></select>
 
-    <label for="SiderPossuiColunaTravessa">Possui coluna/travessa?</label>
-    <select id="SiderPossuiColunaTravessa" required><option>Sim</option><option>Não</option></select>
+    <label for="siderPossuiColunaTravessa">Possui coluna/travessa? (SiderPossuiColunaTravessa)</label>
+    <select id="siderPossuiColunaTravessa" required><option>Sim</option><option>Não</option></select>
 
-    <label for="PortaSiderDefeito">Porta apresenta defeito?</label>
-    <select id="PortaSiderDefeito" required><option>Sim</option><option>Não</option></select>
+    <label for="portaSiderDefeito">Porta apresenta defeito? (PortaSiderDefeito)</label>
+    <select id="portaSiderDefeito" required><option>Sim</option><option>Não</option></select>
 
-    <label for="PinoReiQuintaRoGaviaoOk">Pino rei, quinta-roda, gavião etc. funcionando?</label>
-    <select id="PinoReiQuintaRoGaviaoOk" required><option>Sim</option><option>Não</option></select>
+    <label for="pinoReiQuintaRoGaviaoOk">Pino rei, quinta-roda, gavião etc. funcionando? (PinoReiQuintaRoGaviaoOk)</label>
+    <select id="pinoReiQuintaRoGaviaoOk" required><option>Sim</option><option>Não</option></select>
 
-    <!-- Condições de carregamento (35 a 39) -->
-    <h3>Condições de carregamento</h3>
-    <label for="VeiculoLimpo">Veículo visualmente limpo?</label>
-    <select id="VeiculoLimpo" required><option>Sim</option><option>Não</option></select>
+    <h3>Condições de carregamento (Sim/Não):</h3>
+    <label for="veiculoLimpo">Veículo visualmente limpo? (VeiculoLimpo)</label>
+    <select id="veiculoLimpo" required><option>Sim</option><option>Não</option></select>
 
-    <label for="LimpezaAntesCarregamento">Limpeza realizada antes do carregamento?</label>
-    <select id="LimpezaAntesCarregamento" required><option>Sim</option><option>Não</option></select>
+    <label for="limpezaAntesCarregamento">Limpeza realizada antes do carregamento? (LimpezaAntesCarregamento)</label>
+    <select id="limpezaAntesCarregamento" required><option>Sim</option><option>Não</option></select>
 
-    <label for="PastaDocumentosNoCavalo">Pasta de documentos dentro do cavalo?</label>
-    <select id="PastaDocumentosNoCavalo" required><option>Sim</option><option>Não</option></select>
+    <label for="pastaDocumentosNoCavalo">Pasta de documentos dentro do cavalo? (PastaDocumentosNoCavalo)</label>
+    <select id="pastaDocumentosNoCavalo" required><option>Sim</option><option>Não</option></select>
 
-    <label for="ControlePragasValido">Controle de pragas válido?</label>
-    <select id="ControlePragasValido" required><option>Sim</option><option>Não</option></select>
+    <label for="controlePragasValido">Controle de pragas válido? (ControlePragasValido)</label>
+    <select id="controlePragasValido" required><option>Sim</option><option>Não</option></select>
 
-    <label for="VeiculoDedicadoControle">Veículo dedicado ao transporte sanitário?</label>
-    <select id="VeiculoDedicadoControle" required><option>Sim</option><option>Não</option></select>
+    <label for="veiculoDedicadoControle">Veículo dedicado ao transporte sanitário? (VeiculoDedicadoControle)</label>
+    <select id="veiculoDedicadoControle" required><option>Sim</option><option>Não</option></select>
 
-    <!-- Observações -->
-    <label for="observacoes">Observações gerais:</label>
-    <textarea id="observacoes" rows="4" placeholder="Digite observações..."></textarea>
+    <label for="observacoes">Observações Gerais (Observacoes):</label>
+    <textarea id="observacoes" placeholder="Digite observações gerais..."></textarea>
 
-    <!-- Selfie Motorista -->
-    <div id="selfieContainer">
-      <label>Selfie do Motorista (obrigatório):</label><br />
-      <video id="videoSelfie" autoplay playsinline></video><br />
-      <button type="button" id="btnTakePhoto">Tirar Foto</button><br />
-      <canvas id="canvasSelfie" width="320" height="240"></canvas>
-      <img id="imgSelfiePreview" alt="Foto do motorista" style="margin-top:10px; max-width:100%; border-radius:10px; display:none;" />
-    </div>
+    <label for="assinaturaMotorista">Assinatura do Motorista (AssinaturaMotorista):</label>
+    <input type="text" id="assinaturaMotorista" placeholder="Nome ou assinatura digital" required />
 
     <button type="submit">Enviar Checklist</button>
   </form>
 
-  <div id="status"></div>
+  <p id="status"></p>
 
-<script>
-  // MSAL Config
-  const msalConfig = {
-     auth: {
+  <script>
+    const msalConfig = {
+      auth: {
         clientId: "9f415c84-2708-4ca2-8aa8-69641dd097d0",
         authority: "https://login.microsoftonline.com/62345b7a-94ed-4671-b8f2-624e28c8253a",
         redirectUri: "https://rafaelpinto1.github.io/checklist-gsilva/"
-    }
-  };
-  const msalInstance = new msal.PublicClientApplication(msalConfig);
-
-  const loginBtn = document.getElementById("loginBtn");
-  const formChecklist = document.getElementById("formChecklist");
-  const status = document.getElementById("status");
-
-  loginBtn.onclick = async () => {
-    try {
-      const loginResponse = await msalInstance.loginPopup({ scopes: ["User.Read", "Sites.ReadWrite.All"] });
-      console.log("Login feito:", loginResponse.account);
-      loginBtn.style.display = "none";
-      formChecklist.style.display = "block";
-      status.textContent = `Olá, ${loginResponse.account.name}`;
-      msalInstance.setActiveAccount(loginResponse.account);
-      startCamera();
-    } catch (err) {
-      console.error(err);
-      alert("Erro ao fazer login");
-    }
-  };
-
-  // Selfie capture
-  const video = document.getElementById("videoSelfie");
-  const btnTakePhoto = document.getElementById("btnTakePhoto");
-  const canvas = document.getElementById("canvasSelfie");
-  const imgPreview = document.getElementById("imgSelfiePreview");
-  let selfieDataUrl = "";
-
-  async function startCamera() {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      video.srcObject = stream;
-      video.play();
-    } catch (err) {
-      alert("Erro ao acessar câmera: " + err.message);
-    }
-  }
-
-  btnTakePhoto.onclick = () => {
-    const ctx = canvas.getContext("2d");
-    canvas.width = video.videoWidth || 320;
-    canvas.height = video.videoHeight || 240;
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    selfieDataUrl = canvas.toDataURL("image/png");
-    imgPreview.src = selfieDataUrl;
-    imgPreview.style.display = "block";
-  };
-
-  formChecklist.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    if (!selfieDataUrl) {
-      alert("Por favor, tire a selfie do motorista antes de enviar.");
-      return;
-    }
-
-    // Montar o objeto para enviar para o SharePoint
-    const checklistItem = {
-      Title: document.getElementById("titulo").value,
-      NomeCompleto: document.getElementById("nomeCompleto").value,
-      Matricula: document.getElementById("matricula").value,
-      Data: document.getElementById("data").value,
-      Horario: document.getElementById("horario").value,
-      PlacaSider: document.getElementById("placaSider").value,
-
-      MotoristaTrajado: document.getElementById("MotoristaTrajado").value,
-      SinaisSonolencia: document.getElementById("SinaisSonolencia").value,
-      CursoMOPPValido: document.getElementById("CursoMOPPValido").value,
-      CNHCompativel: document.getElementById("CNHCompativel").value,
-      OrientacaoDirecaoSegura: document.getElementById("OrientacaoDirecaoSegura").value,
-
-      FreioFunciona: document.getElementById("FreioFunciona").value,
-      SistemaEletricoFunciona: document.getElementById("SistemaEletricoFunciona").value,
-      EngateMangueiraSanfonada: document.getElementById("EngateMangueiraSanfonada").value,
-      PressaoPneusOk: document.getElementById("PressaoPneusOk").value,
-      PneusConservacaoOk: document.getElementById("PneusConservacaoOk").value,
-      EstepeConservacaoOk: document.getElementById("EstepeConservacaoOk").value,
-      ParafusosRodasApertados: document.getElementById("ParafusosRodasApertados").value,
-      ValvulasArSemVazamento: document.getElementById("ValvulasArSemVazamento").value,
-      FaixasRefletivasBoas: document.getElementById("FaixasRefletivasBoas").value,
-      MolasBolasBalancasOk: document.getElementById("MolasBolasBalancasOk").value,
-      DocumentacaoTransporteOk: document.getElementById("DocumentacaoTransporteOk").value,
-      PlacaSiderCondicoes: document.getElementById("PlacaSiderCondicoes").value,
-      AcessoriosCargaOk: document.getElementById("AcessoriosCargaOk").value,
-      LonasSiderDefeito: document.getElementById("LonasSiderDefeito").value,
-      CatracasSiderFunciona: document.getElementById("CatracasSiderFunciona").value,
-      AssoalhoSiderCondicoes: document.getElementById("AssoalhoSiderCondicoes").value,
-      SiderPossuiColunaTravessa: document.getElementById("SiderPossuiColunaTravessa").value,
-      PortaSiderDefeito: document.getElementById("PortaSiderDefeito").value,
-      PinoReiQuintaRoGaviaoOk: document.getElementById("PinoReiQuintaRoGaviaoOk").value,
-
-      VeiculoLimpo: document.getElementById("VeiculoLimpo").value,
-      LimpezaAntesCarregamento: document.getElementById("LimpezaAntesCarregamento").value,
-      PastaDocumentosNoCavalo: document.getElementById("PastaDocumentosNoCavalo").value,
-      ControlePragasValido: document.getElementById("ControlePragasValido").value,
-      VeiculoDedicadoControle: document.getElementById("VeiculoDedicadoControle").value,
-
-      Observacoes: document.getElementById("observacoes").value,
-      SelfieMotorista: selfieDataUrl // Foto em base64
+      }
     };
 
-    status.textContent = "Enviando checklist...";
+    const msalInstance = new msal.PublicClientApplication(msalConfig);
+    const loginRequest = {
+      scopes: ["User.Read", "Sites.ReadWrite.All"]
+    };
 
-    try {
-      // Obter token
-      const account = msalInstance.getActiveAccount();
-      if (!account) throw new Error("Usuário não autenticado");
+    let accessToken = "";
 
-      const response = await msalInstance.acquireTokenSilent({
-        scopes: ["Sites.ReadWrite.All"],
-        account: account
-      });
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      try {
+        const loginResponse = await msalInstance.loginPopup(loginRequest);
+        msalInstance.setActiveAccount(loginResponse.account);
+        const tokenResponse = await msalInstance.acquireTokenSilent(loginRequest);
+        accessToken = tokenResponse.accessToken;
 
-      // SharePoint site e lista - ajuste conforme seu ambiente
-      const siteId = "SEU_SITE_ID"; // Ex: 'contoso.sharepoint.com,xxxx-xxxx-xxxx,xxxx-xxxx-xxxx'
-      const listId = "ChecklistMotoristas"; // Nome interno da lista
+        document.getElementById("loginBtn").style.display = "none";
+        document.getElementById("formChecklist").style.display = "block";
+        document.getElementById("status").innerText = "Logado como: " + loginResponse.account.username;
+      } catch (err) {
+        document.getElementById("status").innerText = "Erro no login: " + err.message;
+        console.error(err);
+      }
+    });
 
-      // URL para criar item (exemplo, verifique seu endpoint correto)
-      const endpoint = `https://graph.microsoft.com/v1.0/sites/root/lists/${listId}/items`;
+    document.getElementById("formChecklist").addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-      // O corpo deve respeitar o formato do SharePoint via MS Graph API
-      // Por simplicidade, este exemplo usa campos em "fields"
-      const body = {
-        fields: checklistItem
+      // Monta objeto fields com todos os dados do formulário
+      const fields = {
+        Title: document.getElementById("titulo").value,
+        NomeCompleto: document.getElementById("nomeCompleto").value,
+        Matricula: document.getElementById("matricula").value,
+        Data: document.getElementById("data").value,
+        Horario: document.getElementById("horario").value,
+        PlacaSider: document.getElementById("placaSider").value,
+        MotoristaTrajado: document.getElementById("motoristaTrajado").value,
+        SinaisSonolencia: document.getElementById("sinaisSonolencia").value,
+        CursoMOPPValido: document.getElementById("cursoMOPPValido").value,
+        CNHCompativel: document.getElementById("cnhCompativel").value,
+        OrientacaoDirecaoSegura: document.getElementById("orientacaoDirecaoSegura").value,
+        FreioFunciona: document.getElementById("freioFunciona").value,
+        SistemaEletricoFunciona: document.getElementById("sistemaEletricoFunciona").value,
+        EngateMangueiraSanfonada: document.getElementById("engateMangueiraSanfonada").value,
+        PressaoPneusOk: document.getElementById("pressaoPneusOk").value,
+        PneusConservacaoOk: document.getElementById("pneusConservacaoOk").value,
+        EstepeConservacaoOk: document.getElementById("estepeConservacaoOk").value,
+        ParafusosRodasApertados: document.getElementById("parafusosRodasApertados").value,
+        ValvulasArSemVazamento: document.getElementById("valvulasArSemVazamento").value,
+        FaixasRefletivasBoas: document.getElementById("faixasRefletivasBoas").value,
+        MolasBolasBalancasOk: document.getElementById("molasBolasBalancasOk").value,
+        DocumentacaoTransporteOk: document.getElementById("documentacaoTransporteOk").value,
+        PlacaSiderCondicoes: document.getElementById("placaSiderCondicoes").value,
+        AcessoriosCargaOk: document.getElementById("acessoriosCargaOk").value,
+        LonasSiderDefeito: document.getElementById("lonasSiderDefeito").value,
+        CatracasSiderFunciona: document.getElementById("catracasSiderFunciona").value,
+        AssoalhoSiderCondicoes: document.getElementById("assoalhoSiderCondicoes").value,
+        SiderPossuiColunaTravessa: document.getElementById("siderPossuiColunaTravessa").value,
+        PortaSiderDefeito: document.getElementById("portaSiderDefeito").value,
+        PinoReiQuintaRoGaviaoOk: document.getElementById("pinoReiQuintaRoGaviaoOk").value,
+        VeiculoLimpo: document.getElementById("veiculoLimpo").value,
+        LimpezaAntesCarregamento: document.getElementById("limpezaAntesCarregamento").value,
+        PastaDocumentosNoCavalo: document.getElementById("pastaDocumentosNoCavalo").value,
+        ControlePragasValido: document.getElementById("controlePragasValido").value,
+        VeiculoDedicadoControle: document.getElementById("veiculoDedicadoControle").value,
+        Observacoes: document.getElementById("observacoes").value,
+        AssinaturaMotorista: document.getElementById("assinaturaMotorista").value
       };
 
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${response.accessToken}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(body)
-      });
+      try {
+        const siteResp = await fetch("https://graph.microsoft.com/v1.0/sites/gsilvainfo.sharepoint.com:/sites/Ope", {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        });
+        const site = await siteResp.json();
 
-      if (!res.ok) throw new Error(`Erro ao enviar: ${res.statusText}`);
+        const postResp = await fetch(`https://graph.microsoft.com/v1.0/sites/${site.id}/lists/ChecklistMotoristas/items`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ fields })
+        });
 
-      status.textContent = "Checklist enviado com sucesso!";
-      formChecklist.reset();
-      selfieDataUrl = "";
-      imgPreview.style.display = "none";
+        if (!postResp.ok) {
+          const error = await postResp.json();
+          throw new Error(error.error.message);
+        }
 
-    } catch (error) {
-      console.error(error);
-      status.textContent = "Erro ao enviar checklist: " + error.message;
-    }
-  });
-</script>
-
+        document.getElementById("status").innerText = "Checklist enviado com sucesso!";
+        document.getElementById("formChecklist").reset();
+      } catch (error) {
+        document.getElementById("status").innerText = "Erro ao enviar: " + error.message;
+      }
+    });
+  </script>
 </body>
 </html>

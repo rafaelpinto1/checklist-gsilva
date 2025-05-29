@@ -299,12 +299,19 @@
         });
         const site = await siteResp.json();
 
-        const postResp = await fetch(`https://graph.microsoft.com/v1.0/sites/${site.id}/lists/ChecklistMotoristas/items`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json"
-          },
+    const siteResp = await fetch("https://graph.microsoft.com/v1.0/sites/gsilvainfo.sharepoint.com:/sites/Ope", {
+  headers: { Authorization: `Bearer ${accessToken}` }
+});
+const site = await siteResp.json();
+
+const siteId = site.id.split(',')[1]; // pega só o GUID do site
+
+const postResp = await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/lists/ChecklistMotoristas/items`, {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${accessToken}`,
+    "Content-Type": "application/json"
+  },
           body: JSON.stringify({ fields })
         });
 

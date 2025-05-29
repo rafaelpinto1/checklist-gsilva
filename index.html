@@ -16,10 +16,10 @@
       align-items: center;
     }
     h1 {
-      color: #2a4b7c;
+      color: #d71920;
     }
     #loginBtn {
-      background-color: #2a4b7c;
+      background-color: #d71920;
       color: white;
       border: none;
       padding: 12px 20px;
@@ -33,7 +33,8 @@
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 300px;
+      width: 100%;
+      max-width: 600px;
       margin-top: 20px;
     }
     label {
@@ -41,7 +42,7 @@
       margin-top: 12px;
       font-weight: bold;
     }
-    input, select {
+    input, select, textarea {
       width: 100%;
       padding: 8px;
       margin-top: 4px;
@@ -49,8 +50,8 @@
       border-radius: 4px;
     }
     button[type="submit"] {
-      background-color: #28a745;
-      color: white;
+      background-color: #ffc20e;
+      color: black;
       margin-top: 20px;
       padding: 10px;
       font-size: 16px;
@@ -63,6 +64,11 @@
       margin-top: 20px;
       font-size: 14px;
       color: #444;
+    }
+    video, canvas {
+      margin-top: 12px;
+      width: 100%;
+      max-height: 300px;
     }
   </style>
 </head>
@@ -79,23 +85,52 @@
     <label for="motorista">Motorista:</label>
     <input type="text" id="motorista" required>
 
+    <label for="matricula">Matrícula:</label>
+    <input type="text" id="matricula" required>
+
     <label for="placa">Placa do Veículo:</label>
     <input type="text" id="placa" required>
 
-    <label for="combustivel">Combustível OK:</label>
-    <select id="combustivel">
-      <option value="Sim">Sim</option>
-      <option value="Não">Não</option>
-    </select>
-
-    <label for="pneus">Pneus OK:</label>
-    <select id="pneus">
-      <option value="Sim">Sim</option>
-      <option value="Não">Não</option>
-    </select>
-
     <label for="datahora">Data e Hora:</label>
     <input type="datetime-local" id="datahora" required>
+
+    <label for="trajeAdequado">Traje Adequado:</label>
+    <select id="trajeAdequado">
+      <option value="Sim">Sim</option>
+      <option value="Não">Não</option>
+    </select>
+
+    <label for="sonolencia">Sinais de Sonolência:</label>
+    <select id="sonolencia">
+      <option value="Não">Não</option>
+      <option value="Sim">Sim</option>
+    </select>
+
+    <label for="cursoMOPP">Curso MOPP Válido:</label>
+    <select id="cursoMOPP">
+      <option value="Sim">Sim</option>
+      <option value="Não">Não</option>
+    </select>
+
+    <label for="cnhOk">CNH Compatível:</label>
+    <select id="cnhOk">
+      <option value="Sim">Sim</option>
+      <option value="Não">Não</option>
+    </select>
+
+    <label for="orientado">Orientado sobre direção segura:</label>
+    <select id="orientado">
+      <option value="Sim">Sim</option>
+      <option value="Não">Não</option>
+    </select>
+
+    <label for="observacoes">Observações:</label>
+    <textarea id="observacoes" rows="3"></textarea>
+
+    <label>Selfie do Motorista:</label>
+    <video id="video" autoplay></video>
+    <button type="button" onclick="tirarSelfie()">Tirar Selfie</button>
+    <canvas id="canvas" style="display:none;"></canvas>
 
     <button type="submit">Enviar Checklist</button>
   </form>
@@ -117,6 +152,23 @@
     };
 
     let accessToken = "";
+    let selfieBase64 = "";
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        document.getElementById("video").srcObject = stream;
+      });
+
+    function tirarSelfie() {
+      const video = document.getElementById("video");
+      const canvas = document.getElementById("canvas");
+      canvas.style.display = 'block';
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const context = canvas.getContext("2d");
+      context.drawImage(video, 0, 0);
+      selfieBase64 = canvas.toDataURL("image/jpeg");
+    }
 
     document.getElementById("loginBtn").addEventListener("click", async () => {
       try {
@@ -140,10 +192,16 @@
       const dados = {
         titulo: document.getElementById("titulo").value,
         motorista: document.getElementById("motorista").value,
+        matricula: document.getElementById("matricula").value,
         placa: document.getElementById("placa").value,
-        combustivel: document.getElementById("combustivel").value,
-        pneus: document.getElementById("pneus").value,
-        datahora: document.getElementById("datahora").value
+        datahora: document.getElementById("datahora").value,
+        trajeAdequado: document.getElementById("trajeAdequado").value,
+        sonolencia: document.getElementById("sonolencia").value,
+        cursoMOPP: document.getElementById("cursoMOPP").value,
+        cnhOk: document.getElementById("cnhOk").value,
+        orientado: document.getElementById("orientado").value,
+        observacoes: document.getElementById("observacoes").value,
+        selfie: selfieBase64
       };
 
       try {
@@ -162,8 +220,16 @@
             fields: {
               Title: dados.titulo,
               Motorista: dados.motorista,
+              Matricula: dados.matricula,
               PlacaVeiculo: dados.placa,
-              
+              DataHora: dados.datahora,
+              TrajeAdequado: dados.trajeAdequado,
+              Sonolencia: dados.sonolencia,
+              CursoMOPP: dados.cursoMOPP,
+              CNH_OK: dados.cnhOk,
+              Orientado: dados.orientado,
+              Observacoes: dados.observacoes,
+              SelfieMotorista: dados.selfie
             }
           })
         });

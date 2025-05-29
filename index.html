@@ -2,331 +2,186 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Checklist GSilva</title>
-
-  <!-- MSAL JS -->
-  <script src="https://alcdn.msauth.net/browser/2.37.0/js/msal-browser.min.js" defer></script>
-
+  <script src="https://alcdn.msauth.net/browser/2.37.0/js/msal-browser.min.js"></script>
   <style>
-    /* Reset simples */
-    * {
-      box-sizing: border-box;
-    }
-
-    body, html {
-      margin: 0; padding: 0; height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-      background: #f9f9fb;
-      color: #1c1c1e;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 40px;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      overflow: hidden;
       flex-direction: column;
-      padding: 0 15px;
-    }
-
-    /* Splash Screen */
-    #splash {
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(135deg, #2a4b7c 0%, #1e3a5a 100%);
-      display: flex;
-      justify-content: center;
       align-items: center;
-      flex-direction: column;
-      color: white;
-      font-size: 2rem;
-      font-weight: 700;
-      z-index: 9999;
-      animation: splashFadeOut 1s ease forwards;
-      animation-delay: 2.5s;
     }
-    @keyframes splashFadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
-
-    /* Container */
-    .container {
-      background: white;
-      max-width: 380px;
-      width: 100%;
-      border-radius: 22px;
-      padding: 30px 30px 40px 30px;
-      box-shadow: 0 10px 30px rgba(42, 75, 124, 0.15);
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.6s forwards;
-      animation-delay: 3.5s;
-    }
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     h1 {
-      text-align: center;
       color: #2a4b7c;
-      font-weight: 800;
-      margin-bottom: 24px;
-      font-size: 1.8rem;
-      user-select: none;
     }
-
-    /* Botão de login */
     #loginBtn {
-      background: linear-gradient(90deg, #2a4b7c 0%, #1e3a5a 100%);
+      background-color: #2a4b7c;
       color: white;
       border: none;
-      width: 100%;
-      padding: 15px 0;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border-radius: 16px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 6px;
       cursor: pointer;
-      box-shadow: 0 8px 15px rgba(42, 75, 124, 0.3);
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
     }
-    #loginBtn:hover {
-      background: linear-gradient(90deg, #1e3a5a 0%, #15314b 100%);
-      box-shadow: 0 12px 20px rgba(42, 75, 124, 0.5);
-    }
-    #loginBtn:disabled {
-      background: #999;
-      cursor: default;
-      box-shadow: none;
-    }
-
-    /* Formulário */
-    form {
-      margin-top: 24px;
+    #formChecklist {
       display: none;
-      flex-direction: column;
-      gap: 18px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 300px;
+      margin-top: 20px;
     }
-
     label {
-      font-weight: 600;
-      font-size: 0.9rem;
-      margin-bottom: 6px;
-      user-select: none;
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
     }
-
-    input {
+    input, select {
       width: 100%;
-      padding: 12px 14px;
-      font-size: 1rem;
-      border-radius: 12px;
-      border: 1.8px solid #d0d2d6;
-      outline-offset: 2px;
-      transition: border-color 0.3s ease;
-      font-weight: 500;
-      color: #1c1c1e;
-      font-family: inherit;
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
-    input:focus {
-      border-color: #2a4b7c;
-      box-shadow: 0 0 8px #2a4b7caa;
-    }
-
     button[type="submit"] {
-      margin-top: 14px;
-      background: #28a745;
+      background-color: #28a745;
       color: white;
-      padding: 14px 0;
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 16px;
       border: none;
-      font-size: 1.1rem;
-      border-radius: 16px;
-      font-weight: 700;
+      width: 100%;
+      border-radius: 6px;
       cursor: pointer;
-      box-shadow: 0 8px 15px rgba(40, 167, 69, 0.3);
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
     }
-    button[type="submit"]:hover {
-      background: #218838;
-      box-shadow: 0 12px 20px rgba(40, 167, 69, 0.5);
-    }
-
-    /* Status */
     #status {
-      margin-top: 18px;
-      text-align: center;
-      font-size: 1rem;
-      min-height: 24px;
-      color: #555;
-      user-select: none;
-      transition: color 0.3s ease;
-    }
-    #status.success {
-      color: #28a745;
-    }
-    #status.error {
-      color: #dc3545;
-    }
-
-    /* Mobile */
-    @media (max-width: 400px) {
-      .container {
-        padding: 24px 20px 36px 20px;
-      }
+      margin-top: 20px;
+      font-size: 14px;
+      color: #444;
     }
   </style>
 </head>
 <body>
 
-  <div id="splash">
-    <div>GSilva Checklist</div>
-    <svg width="80" height="80" viewBox="0 0 100 100" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="50" cy="50" r="44" style="opacity:0.2"/>
-      <path d="M32 50l15 15 30-30" />
-    </svg>
-  </div>
+  <h1>Checklist GSilva</h1>
 
-  <main class="container" role="main" aria-label="Checklist de Motoristas">
+  <button id="loginBtn">Login com Microsoft</button>
 
-    <h1>Checklist GSilva</h1>
+  <form id="formChecklist">
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" required>
 
-    <button id="loginBtn" aria-label="Login com Microsoft">Login com Microsoft</button>
+    <label for="motorista">Motorista:</label>
+    <input type="text" id="motorista" required>
 
-    <form id="formChecklist" aria-live="polite" aria-relevant="additions">
-      <label for="titulo">Título</label>
-      <input type="text" id="titulo" name="titulo" autocomplete="off" required placeholder="Informe o título">
+    <label for="placa">Placa do Veículo:</label>
+    <input type="text" id="placa" required>
 
-      <label for="motorista">Motorista</label>
-      <input type="text" id="motorista" name="motorista" autocomplete="off" required placeholder="Nome do motorista">
+    <label for="combustivel">Combustível OK:</label>
+    <select id="combustivel">
+      <option value="Sim">Sim</option>
+      <option value="Não">Não</option>
+    </select>
 
-      <label for="placa">Placa do Veículo</label>
-      <input type="text" id="placa" name="placa" autocomplete="off" required placeholder="ABC-1234">
+    <label for="pneus">Pneus OK:</label>
+    <select id="pneus">
+      <option value="Sim">Sim</option>
+      <option value="Não">Não</option>
+    </select>
 
-      <button type="submit" aria-label="Enviar Checklist">Enviar Checklist</button>
-    </form>
+    <label for="datahora">Data e Hora:</label>
+    <input type="datetime-local" id="datahora" required>
 
-    <p id="status" role="alert" aria-live="assertive"></p>
+    <button type="submit">Enviar Checklist</button>
+  </form>
 
-  </main>
+  <p id="status"></p>
 
-<script>
-  // MSAL Config
-  const msalConfig = {
-    auth: {
-      clientId: "9f415c84-2708-4ca2-8aa8-69641dd097d0",
-      authority: "https://login.microsoftonline.com/62345b7a-94ed-4671-b8f2-624e28c8253a",
-      redirectUri: "https://rafaelpinto1.github.io/checklist-gsilva/"
-    }
-  };
-
-  const msalInstance = new msal.PublicClientApplication(msalConfig);
-  const loginRequest = {
-    scopes: ["User.Read", "Sites.ReadWrite.All"]
-  };
-
-  let accessToken = "";
-
-  // Splash screen fade out and show main container
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      document.getElementById("splash").style.display = "none";
-      const container = document.querySelector(".container");
-      container.style.opacity = "1";
-      container.style.transform = "translateY(0)";
-    }, 2800);
-  });
-
-  // Login MS
-  document.getElementById("loginBtn").addEventListener("click", async () => {
-    try {
-      document.getElementById("status").textContent = "Carregando login...";
-      const loginResponse = await msalInstance.loginPopup(loginRequest);
-      msalInstance.setActiveAccount(loginResponse.account);
-      const tokenResponse = await msalInstance.acquireTokenSilent(loginRequest);
-      accessToken = tokenResponse.accessToken;
-
-      document.getElementById("loginBtn").disabled = true;
-      document.getElementById("loginBtn").style.display = "none";
-
-      const form = document.getElementById("formChecklist");
-      form.style.display = "flex";
-
-      document.getElementById("status").textContent = "✅ Logado como: " + loginResponse.account.username;
-      document.getElementById("status").className = "success";
-    } catch (err) {
-      document.getElementById("status").textContent = "❌ Erro no login: " + err.message;
-      document.getElementById("status").className = "error";
-      console.error(err);
-    }
-  });
-
-  // Form submit
-  document.getElementById("formChecklist").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const dados = {
-      titulo: document.getElementById("titulo").value.trim(),
-      motorista: document.getElementById("motorista").value.trim(),
-      placa: document.getElementById("placa").value.trim()
+  <script>
+    const msalConfig = {
+      auth: {
+        clientId: "9f415c84-2708-4ca2-8aa8-69641dd097d0",
+        authority: "https://login.microsoftonline.com/62345b7a-94ed-4671-b8f2-624e28c8253a",
+        redirectUri: "https://rafaelpinto1.github.io/checklist-gsilva/"
+      }
     };
 
-    if (!dados.titulo || !dados.motorista || !dados.placa) {
-      document.getElementById("status").textContent = "⚠️ Preencha todos os campos.";
-      document.getElementById("status").className = "error";
-      return;
-    }
+    const msalInstance = new msal.PublicClientApplication(msalConfig);
+    const loginRequest = {
+      scopes: ["User.Read", "Sites.ReadWrite.All"]
+    };
 
-    try {
-      document.getElementById("status").textContent = "⏳ Enviando checklist...";
-      document.getElementById("status").className = "";
+    let accessToken = "";
 
-      // Pega site id
-      const siteResp = await fetch("https://graph.microsoft.com/v1.0/sites/gsilvainfo.sharepoint.com:/sites/Ope", {
-        headers: { Authorization: `Bearer ${accessToken}` }
-      });
-      if (!siteResp.ok) throw new Error("Falha ao obter site SharePoint");
-      const site = await siteResp.json();
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      try {
+        const loginResponse = await msalInstance.loginPopup(loginRequest);
+        msalInstance.setActiveAccount(loginResponse.account);
+        const tokenResponse = await msalInstance.acquireTokenSilent(loginRequest);
+        accessToken = tokenResponse.accessToken;
 
-      // Post no SharePoint
-      const postResp = await fetch(`https://graph.microsoft.com/v1.0/sites/${site.id}/lists/ChecklistMotoristas/items`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          fields: {
-            Title: dados.titulo,
-            Motorista: dados.motorista,
-            PlacaVeiculo: dados.placa
-          }
-        })
-      });
-
-      if (!postResp.ok) {
-        const error = await postResp.text();
-        throw new Error(error);
+        document.getElementById("loginBtn").style.display = "none";
+        document.getElementById("formChecklist").style.display = "block";
+        document.getElementById("status").innerText = "Logado como: " + loginResponse.account.username;
+      } catch (err) {
+        document.getElementById("status").innerText = "Erro no login: " + err.message;
+        console.error(err);
       }
+    });
 
-      document.getElementById("status").textContent = "✅ Checklist enviado com sucesso!";
-      document.getElementById("status").className = "success";
-      e.target.reset();
+    document.getElementById("formChecklist").addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-    } catch (err) {
-      document.getElementById("status").textContent = "❌ Erro ao enviar: " + err.message;
-      document.getElementById("status").className = "error";
-      console.error(err);
-    }
-  });
-</script>
+      const dados = {
+        titulo: document.getElementById("titulo").value,
+        motorista: document.getElementById("motorista").value,
+        placa: document.getElementById("placa").value,
+        combustivel: document.getElementById("combustivel").value,
+        pneus: document.getElementById("pneus").value,
+        datahora: document.getElementById("datahora").value
+      };
+
+      try {
+        const siteResp = await fetch("https://graph.microsoft.com/v1.0/sites/gsilvainfo.sharepoint.com:/sites/Ope", {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        });
+        const site = await siteResp.json();
+
+        const postResp = await fetch(`https://graph.microsoft.com/v1.0/sites/${site.id}/lists/ChecklistMotoristas/items`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            fields: {
+              Title: dados.titulo,
+              Motorista: dados.motorista,
+              PlacaVeiculo: dados.placa,
+              
+            }
+          })
+        });
+
+        if (postResp.ok) {
+          document.getElementById("status").innerText = "✅ Checklist enviado com sucesso!";
+          document.getElementById("formChecklist").reset();
+        } else {
+          const error = await postResp.text();
+          document.getElementById("status").innerText = "❌ Erro ao enviar: " + error;
+          console.error(error);
+        }
+      } catch (err) {
+        document.getElementById("status").innerText = "❌ Erro inesperado: " + err.message;
+        console.error(err);
+      }
+    });
+  </script>
 
 </body>
 </html>

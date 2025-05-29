@@ -1,164 +1,167 @@
-/* Variáveis de cor GSilva */
-:root {
-  --gsilva-red: #d32f2f;
-  --gsilva-red-dark: #a52727;
-  --background: #fff;
-  --text-color: #333;
-  --input-bg: #f9f9f9;
-  --input-border: #ccc;
-  --input-focus-border: var(--gsilva-red);
-  --button-text: #fff;
-}
-
 /* Reset básico */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-body {
-  background-color: var(--background);
+  box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: var(--text-color);
-  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #222;
+  background-color: #fff;
+}
+
+/* Corpo e layout geral */
+body, html {
+  height: 100%;
+  background: #fff;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 2rem 1rem;
+  padding: 20px;
+}
+
+/* Container central */
+body > * {
+  max-width: 420px;
+  width: 100%;
 }
 
 /* Título principal */
 h1 {
-  color: var(--gsilva-red);
-  font-weight: 700;
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
   text-align: center;
+  font-weight: 700;
+  color: #c40000; /* vermelho GSilva */
+  margin-bottom: 30px;
+  font-size: 2.4rem;
+  letter-spacing: 1.2px;
 }
 
-/* Botão login Microsoft */
+/* Botão login */
 #loginBtn {
-  background-color: var(--gsilva-red);
-  color: var(--button-text);
+  display: block;
+  margin: 0 auto 40px auto;
+  padding: 14px 0;
+  width: 100%;
+  max-width: 420px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: white;
+  background-color: #c40000; /* vermelho GSilva */
   border: none;
   border-radius: 12px;
-  padding: 0.8rem 2.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgb(211 47 47 / 0.4);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  margin-bottom: 2.5rem;
-  align-self: center;
-  display: block;
+  box-shadow: 0 6px 10px rgba(196, 0, 0, 0.4);
+  transition: background-color 0.3s ease;
 }
 
 #loginBtn:hover {
-  background-color: var(--gsilva-red-dark);
-  box-shadow: 0 6px 12px rgb(165 39 39 / 0.6);
+  background-color: #a00000;
 }
 
 /* Formulário */
 form#formChecklist {
-  width: 100%;
-  max-width: 480px;
   background: #fff;
-  padding: 2rem 2.5rem;
-  border-radius: 20px;
-  box-shadow: 0 8px 24px rgb(0 0 0 / 0.1);
+  border-radius: 15px;
+  padding: 25px 30px 35px 30px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 15px;
   font-size: 1rem;
-  color: var(--text-color);
+}
+
+/* Cabeçalhos internos */
+form h3 {
+  color: #c40000;
+  font-weight: 700;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #c40000;
+  padding-bottom: 5px;
+  letter-spacing: 0.6px;
 }
 
 /* Labels */
 form label {
-  font-weight: 600;
-  margin-bottom: 0.25rem;
   display: block;
-  color: #555;
-}
-
-/* Inputs, selects, datalist inputs e textarea */
-form input[type="text"],
-form input[type="date"],
-form input[list],
-form textarea {
-  width: 100%;
-  padding: 0.6rem 1rem;
-  border-radius: 12px;
-  border: 1.8px solid var(--input-border);
-  background-color: var(--input-bg);
-  font-size: 1rem;
-  font-family: inherit;
-  transition: border-color 0.3s ease;
-  outline-offset: 2px;
-}
-
-form input[type="text"]:focus,
-form input[type="date"]:focus,
-form input[list]:focus,
-form textarea:focus {
-  border-color: var(--input-focus-border);
-  background-color: #fff;
-  outline: none;
-  box-shadow: 0 0 6px var(--gsilva-red);
-}
-
-/* Textarea */
-form textarea {
-  resize: vertical;
-  min-height: 80px;
-  font-family: inherit;
-}
-
-/* Seções internas */
-form h3 {
-  color: var(--gsilva-red);
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
-  font-weight: 700;
-  font-size: 1.25rem;
-  border-bottom: 2px solid var(--gsilva-red);
-  padding-bottom: 0.3rem;
-}
-
-/* Botão de submit */
-form button[type="submit"] {
-  background-color: var(--gsilva-red);
-  color: var(--button-text);
-  font-size: 1.15rem;
-  font-weight: 700;
-  padding: 0.85rem 0;
-  border: none;
-  border-radius: 16px;
-  cursor: pointer;
-  box-shadow: 0 5px 15px rgb(211 47 47 / 0.4);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  margin-top: 1.5rem;
-}
-
-form button[type="submit"]:hover {
-  background-color: var(--gsilva-red-dark);
-  box-shadow: 0 7px 20px rgb(165 39 39 / 0.6);
-}
-
-/* Status message */
-#status {
-  margin-top: 1rem;
-  text-align: center;
   font-weight: 600;
-  color: var(--gsilva-red-dark);
+  margin-bottom: 6px;
+  color: #444;
+  user-select: none;
 }
 
-/* Responsividade */
-@media (max-width: 520px) {
+/* Inputs, datalists e textarea */
+input[type="text"],
+input[type="date"],
+input[list],
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.8px solid #ddd;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.25s ease;
+  font-weight: 500;
+  color: #222;
+  background: #fafafa;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  resize: vertical;
+  min-height: 38px;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[list]:focus,
+textarea:focus {
+  border-color: #c40000;
+  outline: none;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(196, 0, 0, 0.35);
+}
+
+/* Placeholder com cor mais escura */
+::placeholder {
+  color: #999;
+  font-weight: 400;
+}
+
+/* Botão submit */
+button[type="submit"] {
+  margin-top: 25px;
+  padding: 15px 0;
+  width: 100%;
+  background-color: #c40000;
+  color: white;
+  font-weight: 700;
+  font-size: 1.15rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(196, 0, 0, 0.45);
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #a00000;
+}
+
+/* Parágrafo de status */
+#status {
+  text-align: center;
+  margin-top: 25px;
+  font-weight: 600;
+  color: #c40000;
+  min-height: 1.3rem;
+}
+
+/* Responsividade iOS friendly */
+@media (max-width: 480px) {
   body {
-    padding: 1rem 1rem 3rem;
+    padding: 15px 12px;
   }
 
   h1 {
@@ -166,14 +169,45 @@ form button[type="submit"]:hover {
   }
 
   form#formChecklist {
-    padding: 1.5rem 1.5rem;
-    border-radius: 16px;
-    font-size: 0.95rem;
+    padding: 20px 18px 28px 18px;
+    gap: 12px;
   }
 
-  form button[type="submit"],
+  button[type="submit"],
   #loginBtn {
-    padding: 0.75rem 1.8rem;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    padding: 13px 0;
   }
+
+  input[type="text"],
+  input[type="date"],
+  input[list],
+  textarea {
+    font-size: 0.95rem;
+    padding: 10px 12px;
+  }
+}
+
+/* Suaviza os cantos do datalist dropdown */
+input[list]::-webkit-calendar-picker-indicator,
+input[list]::-webkit-inner-spin-button {
+  display: none;
+}
+
+/* Dá um toque iOS-like para inputs list */
+input[list] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Estilo para textarea */
+textarea {
+  min-height: 80px;
+  font-family: inherit;
+  line-height: 1.4;
+}
+
+/* Scroll suave para inputs e body */
+html {
+  scroll-behavior: smooth;
 }

@@ -99,108 +99,104 @@
    <label for="motoristaTrajado">Motorista e ajudantes devidamente trajados?</label>
       <input list="opcoesTrajado" id="motoristaTrajado" name="motoristaTrajado" required placeholder="Escolha uma opção">
       <datalist id="opcoesTrajado">
-      <option value="true">
-      <option value="false">
+      <option value="Sim">
+      <option value="Não">
+      <option value="N/A">
       </datalist>
 
 
     <label for="sinaisSonolencia">Sinais de sonolência/embriaguez? (SinaisSonolencia)</label>
-    <select id="sinaisSonolencia" required>
-      <option value="true">true</option>
-      <option value="false">false</option>
-    </select>
+<input list="opcoesSimNaoNA" id="sinaisSonolencia" name="sinaisSonolencia" required placeholder="Escolha uma opção">
+ 
+<label for="cursoMOPPValido">Curso MOPP válido? (CursoMOPPValido)</label>
+<input list="opcoesSimNaoNA" id="cursoMOPPValido" name="cursoMOPPValido" required placeholder="Escolha uma opção">
+ 
+<label for="cnhCompativel">CNH compatível? (CNHCompativel)</label>
+<input list="opcoesSimNaoNA" id="cnhCompativel" name="cnhCompativel" required placeholder="Escolha uma opção">
+ 
+<label for="orientacaoDirecaoSegura">Motorista orientado? (OrientacaoDirecaoSegura)</label>
+<input list="opcoesSimNaoNA" id="orientacaoDirecaoSegura" name="orientacaoDirecaoSegura" required placeholder="Escolha uma opção">
+ 
+<h3>Checklist Sider (Sim/Não/N/A):</h3>
+<label for="freioFunciona">Freio funcionando corretamente? (FreioFunciona)</label>
+<input list="opcoesSimNaoNA" id="freioFunciona" name="freioFunciona" required placeholder="Escolha uma opção">
+ 
+<label for="sistemaEletricoFunciona">Sistema elétrico (lanternas, setas etc.)? (SistemaEletricoFunciona)</label>
+<input list="opcoesSimNaoNA" id="sistemaEletricoFunciona" name="sistemaEletricoFunciona" required placeholder="Escolha uma opção">
+ 
+<label for="engateMangueiraSanfonada">Engate mangueira sanfonada? (EngateMangueiraSanfonada)</label>
+<input list="opcoesSimNaoNA" id="engateMangueiraSanfonada" name="engateMangueiraSanfonada" required placeholder="Escolha uma opção">
+ 
+<label for="pressaoPneusOk">Pressão dos pneus e estepes OK? (PressaoPneusOk)</label>
+<input list="opcoesSimNaoNA" id="pressaoPneusOk" name="pressaoPneusOk" required placeholder="Escolha uma opção">
+ 
+<label for="pneusConservacaoOk">Pneus em bom estado? (PneusConservacaoOk)</label>
+<input list="opcoesSimNaoNA" id="pneusConservacaoOk" name="pneusConservacaoOk" required placeholder="Escolha uma opção">
+ 
+<label for="estepeConservacaoOk">Estepe em bom estado? (EstepeConservacaoOk)</label>
+<input list="opcoesSimNaoNA" id="estepeConservacaoOk" name="estepeConservacaoOk" required placeholder="Escolha uma opção">
+ 
+<label for="parafusosRodasApertados">Parafusos apertados corretamente? (ParafusosRodasApertados)</label>
+<input list="opcoesSimNaoNA" id="parafusosRodasApertados" name="parafusosRodasApertados" required placeholder="Escolha uma opção">
+ 
+<label for="valvulasArSemVazamento">Válvulas de ar e conexões sem vazamento? (ValvulasArSemVazamento)</label>
+<input list="opcoesSimNaoNA" id="valvulasArSemVazamento" name="valvulasArSemVazamento" required placeholder="Escolha uma opção">
+ 
+<label for="faixasRefletivasBoas">Faixas refletivas em boas condições? (FaixasRefletivasBoas)</label>
+<input list="opcoesSimNaoNA" id="faixasRefletivasBoas" name="faixasRefletivasBoas" required placeholder="Escolha uma opção">
+ 
+<label for="molasBolasBalancasOk">Molas, bolas, balanças ok? (MolasBolasBalancasOk)</label>
+<input list="opcoesSimNaoNA" id="molasBolasBalancasOk" name="molasBolasBalancasOk" required placeholder="Escolha uma opção">
+ 
+<label for="documentacaoTransporteOk">Documentação necessária OK? (DocumentacaoTransporteOk)</label>
+<input list="opcoesSimNaoNA" id="documentacaoTransporteOk" name="documentacaoTransporteOk" required placeholder="Escolha uma opção">
+ 
+<label for="placaSiderCondicoes">Placa do sider em boas condições? (PlacaSiderCondicoes)</label>
+<input list="opcoesSimNaoNA" id="placaSiderCondicoes" name="placaSiderCondicoes" required placeholder="Escolha uma opção">
+ 
+<label for="acessoriosCargaOk">Acessórios de acondicionamento em boas condições? (AcessoriosCargaOk)</label>
+<input list="opcoesSimNaoNA" id="acessoriosCargaOk" name="acessoriosCargaOk" required placeholder="Escolha uma opção">
+ 
+<label for="lonasSiderDefeito">Lonas da sider com defeito? (LonasSiderDefeito)</label>
+<input list="opcoesSimNaoNA" id="lonasSiderDefeito" name="lonasSiderDefeito" required placeholder="Escolha uma opção">
+ 
+<label for="catracasSiderFunciona">Catracas funcionando? (CatracasSiderFunciona)</label>
+<input list="opcoesSimNaoNA" id="catracasSiderFunciona" name="catracasSiderFunciona" required placeholder="Escolha uma opção">
+ 
+<label for="assoalhoSiderCondicoes">Assoalho em boas condições? (AssoalhoSiderCondicoes)</label>
+<input list="opcoesSimNaoNA" id="assoalhoSiderCondicoes" name="assoalhoSiderCondicoes" required placeholder="Escolha uma opção">
+ 
+<label for="siderPossuiColunaTravessa">Possui coluna/travessa? (SiderPossuiColunaTravessa)</label>
+<input list="opcoesSimNaoNA" id="siderPossuiColunaTravessa" name="siderPossuiColunaTravessa" required placeholder="Escolha uma opção">
+ 
+<label for="portaSiderDefeito">Porta apresenta defeito? (PortaSiderDefeito)</label>
+<input list="opcoesSimNaoNA" id="portaSiderDefeito" name="portaSiderDefeito" required placeholder="Escolha uma opção">
+ 
+<label for="pinoReiQuintaRoGaviaoOk">Pino rei, quinta-roda, gavião etc. funcionando? (PinoReiQuintaRoGaviaoOk)</label>
+<input list="opcoesSimNaoNA" id="pinoReiQuintaRoGaviaoOk" name="pinoReiQuintaRoGaviaoOk" required placeholder="Escolha uma opção">
+ 
+<h3>Condições de carregamento (Sim/Não/N/A):</h3>
+<label for="veiculoLimpo">Veículo visualmente limpo? (VeiculoLimpo)</label>
+<input list="opcoesSimNaoNA" id="veiculoLimpo" name="veiculoLimpo" required placeholder="Escolha uma opção">
+ 
+<label for="limpezaAntesCarregamento">Limpeza realizada antes do carregamento? (LimpezaAntesCarregamento)</label>
+<input list="opcoesSimNaoNA" id="limpezaAntesCarregamento" name="limpezaAntesCarregamento" required placeholder="Escolha uma opção">
+ 
+<label for="pastaDocumentosNoCavalo">Pasta de documentos dentro do cavalo? (PastaDocumentosNoCavalo)</label>
+<input list="opcoesSimNaoNA" id="pastaDocumentosNoCavalo" name="pastaDocumentosNoCavalo" required placeholder="Escolha uma opção">
+ 
+<label for="controlePragasValido">Controle de pragas válido? (ControlePragasValido)</label>
+<input list="opcoesSimNaoNA" id="controlePragasValido" name="controlePragasValido" required placeholder="Escolha uma opção">
+ 
+<label for="veiculoDedicadoControle">Veículo dedicado ao transporte sanitário? (VeiculoDedicadoControle)</label>
+<input list="opcoesSimNaoNA" id="veiculoDedicadoControle" name="veiculoDedicadoControle" required placeholder="Escolha uma opção">
 
-    <label for="cursoMOPPValido">Curso MOPP válido? (CursoMOPPValido)</label>
-    <select id="cursoMOPPValido" required>
-      <option value="true">true</option>
-      <option value="false">false</option>
-    </select>
+<datalist id="opcoesSimNaoNA">
+  <option value="Sim">
+  <option value="Não">
+  <option value="N/A">
+</datalist>
 
-    <label for="cnhCompativel">CNH compatível? (CNHCompativel)</label>
-    <select id="cnhCompativel" required>
-      <option value="true">true</option>
-      <option value="false">false</option>
-    </select>
-
-    <label for="orientacaoDirecaoSegura">Motorista orientado? (OrientacaoDirecaoSegura)</label>
-    <select id="orientacaoDirecaoSegura" required>
-      <option value="true">true</option>
-      <option value="false">false</option>
-    </select>
-
-    <h3>Checklist Sider (true/false):</h3>
-    <label for="freioFunciona">Freio funcionando corretamente? (FreioFunciona)</label>
-    <select id="freioFunciona" required><option>true</option><option>false</option></select>
-
-    <label for="sistemaEletricoFunciona">Sistema elétrico (lanternas, setas etc.)? (SistemaEletricoFunciona)</label>
-    <select id="sistemaEletricoFunciona" required><option>true</option><option>false</option></select>
-
-    <label for="engateMangueiraSanfonada">Engate mangueira sanfonada? (EngateMangueiraSanfonada)</label>
-    <select id="engateMangueiraSanfonada" required><option>true</option><option>false</option></select>
-
-    <label for="pressaoPneusOk">Pressão dos pneus e estepes OK? (PressaoPneusOk)</label>
-    <select id="pressaoPneusOk" required><option>true</option><option>false</option></select>
-
-    <label for="pneusConservacaoOk">Pneus em bom estado? (PneusConservacaoOk)</label>
-    <select id="pneusConservacaoOk" required><option>true</option><option>false</option></select>
-
-    <label for="estepeConservacaoOk">Estepe em bom estado? (EstepeConservacaoOk)</label>
-    <select id="estepeConservacaoOk" required><option>true</option><option>false</option></select>
-
-    <label for="parafusosRodasApertados">Parafusos apertados corretamente? (ParafusosRodasApertados)</label>
-    <select id="parafusosRodasApertados" required><option>true</option><option>false</option></select>
-
-    <label for="valvulasArSemVazamento">Válvulas de ar e conexões sem vazamento? (ValvulasArSemVazamento)</label>
-    <select id="valvulasArSemVazamento" required><option>true</option><option>false</option></select>
-
-    <label for="faixasRefletivasBoas">Faixas refletivas em boas condições? (FaixasRefletivasBoas)</label>
-    <select id="faixasRefletivasBoas" required><option>true</option><option>false</option></select>
-
-    <label for="molasBolasBalancasOk">Molas, bolas, balanças ok? (MolasBolasBalancasOk)</label>
-    <select id="molasBolasBalancasOk" required><option>true</option><option>false</option></select>
-
-    <label for="documentacaoTransporteOk">Documentação necessária OK? (DocumentacaoTransporteOk)</label>
-    <select id="documentacaoTransporteOk" required><option>true</option><option>false</option></select>
-
-    <label for="placaSiderCondicoes">Placa do sider em boas condições? (PlacaSiderCondicoes)</label>
-    <select id="placaSiderCondicoes" required><option>true</option><option>false</option></select>
-
-    <label for="acessoriosCargaOk">Acessórios de acondicionamento em boas condições? (AcessoriosCargaOk)</label>
-    <select id="acessoriosCargaOk" required><option>true</option><option>false</option></select>
-
-    <label for="lonasSiderDefeito">Lonas da sider com defeito? (LonasSiderDefeito)</label>
-    <select id="lonasSiderDefeito" required><option>true</option><option>false</option></select>
-
-    <label for="catracasSiderFunciona">Catracas funcionando? (CatracasSiderFunciona)</label>
-    <select id="catracasSiderFunciona" required><option>true</option><option>false</option></select>
-
-    <label for="assoalhoSiderCondicoes">Assoalho em boas condições? (AssoalhoSiderCondicoes)</label>
-    <select id="assoalhoSiderCondicoes" required><option>true</option><option>false</option></select>
-
-    <label for="siderPossuiColunaTravessa">Possui coluna/travessa? (SiderPossuiColunaTravessa)</label>
-    <select id="siderPossuiColunaTravessa" required><option>true</option><option>false</option></select>
-
-    <label for="portaSiderDefeito">Porta apresenta defeito? (PortaSiderDefeito)</label>
-    <select id="portaSiderDefeito" required><option>true</option><option>false</option></select>
-
-    <label for="pinoReiQuintaRoGaviaoOk">Pino rei, quinta-roda, gavião etc. funcionando? (PinoReiQuintaRoGaviaoOk)</label>
-    <select id="pinoReiQuintaRoGaviaoOk" required><option>true</option><option>false</option></select>
-
-    <h3>Condições de carregamento (true/false):</h3>
-    <label for="veiculoLimpo">Veículo visualmente limpo? (VeiculoLimpo)</label>
-    <select id="veiculoLimpo" required><option>true</option><option>false</option></select>
-
-    <label for="limpezaAntesCarregamento">Limpeza realizada antes do carregamento? (LimpezaAntesCarregamento)</label>
-    <select id="limpezaAntesCarregamento" required><option>true</option><option>false</option></select>
-
-    <label for="pastaDocumentosNoCavalo">Pasta de documentos dentro do cavalo? (PastaDocumentosNoCavalo)</label>
-    <select id="pastaDocumentosNoCavalo" required><option>true</option><option>false</option></select>
-
-    <label for="controlePragasValido">Controle de pragas válido? (ControlePragasValido)</label>
-    <select id="controlePragasValido" required><option>true</option><option>false</option></select>
-
-    <label for="veiculoDedicadoControle">Veículo dedicado ao transporte sanitário? (VeiculoDedicadoControle)</label>
-    <select id="veiculoDedicadoControle" required><option>true</option><option>false</option></select>
 
     <label for="observacoes">Observações Gerais (Observacoes):</label>
     <textarea id="observacoes" placeholder="Digite observações gerais..."></textarea>
@@ -252,6 +248,35 @@
         Data: document.getElementById("data").value,
         PlacaSider: document.getElementById("placaSider").value,
         MotoristaTrajado: document.getElementById("motoristaTrajado").value,
+        SinaisSonolencia: document.getElementById("sinaisSonolencia").value,
+        CursoMOPPValido: document.getElementById("cursoMOPPValido").value,
+        CNHCompativel: document.getElementById("cnhCompativel").value,
+         OrientacaoDirecaoSegura: document.getElementById("orientacaoDirecaoSegura").value,
+        FreioFunciona: document.getElementById("freioFunciona").value,
+        SistemaEletricoFunciona: document.getElementById("sistemaEletricoFunciona").value,
+        EngateMangueiraSanfonada: document.getElementById("engateMangueiraSanfonada").value,
+        PressaoPneusOk: document.getElementById("pressaoPneusOk").value,
+        PneusConservacaoOk: document.getElementById("pneusConservacaoOk").value,
+        EstepeConservacaoOk: document.getElementById("estepeConservacaoOk").value,
+        ParafusosRodasApertados: document.getElementById("parafusosRodasApertados").value,
+        ValvulasArSemVazamento: document.getElementById("valvulasArSemVazamento").value,
+        FaixasRefletivasBoas: document.getElementById("faixasRefletivasBoas").value,
+        MolasBolasBalancasOk: document.getElementById("molasBolasBalancasOk").value,
+        DocumentacaoTransporteOk: document.getElementById("documentacaoTransporteOk").value,
+        PlacaSiderCondicoes: document.getElementById("placaSiderCondicoes").value,
+        AcessoriosCargaOk: document.getElementById("acessoriosCargaOk").value,
+        LonasSiderDefeito: document.getElementById("lonasSiderDefeito").value,
+        CatracasSiderFunciona: document.getElementById("catracasSiderFunciona").value,
+        AssoalhoSiderCondicoes: document.getElementById("assoalhoSiderCondicoes").value,
+        SiderPossuiColunaTravessa: document.getElementById("siderPossuiColunaTravessa").value,
+        PortaSiderDefeito: document.getElementById("portaSiderDefeito").value,
+        PinoReiQuintaRoGaviaoOk: document.getElementById("pinoReiQuintaRoGaviaoOk").value,
+        VeiculoLimpo: document.getElementById("veiculoLimpo").value,
+        LimpezaAntesCarregamento: document.getElementById("limpezaAntesCarregamento").value,
+        PastaDocumentosNoCavalo: document.getElementById("pastaDocumentosNoCavalo").value,
+        ControlePragasValido: document.getElementById("controlePragasValido").value,
+        VeiculoDedicadoControle: document.getElementById("veiculoDedicadoControle").value,
+        Observacoes: document.getElementById("observacoes").value,
        
        
         

@@ -36,6 +36,7 @@ h1 {
   margin-bottom: 30px;
   font-size: 2.4rem;
   letter-spacing: 1.2px;
+  user-select: none;
 }
 
 /* Botão login */
@@ -54,6 +55,7 @@ h1 {
   cursor: pointer;
   box-shadow: 0 6px 10px rgba(196, 0, 0, 0.4);
   transition: background-color 0.3s ease;
+  user-select: none;
 }
 
 #loginBtn:hover {
@@ -70,6 +72,8 @@ form#formChecklist {
   flex-direction: column;
   gap: 15px;
   font-size: 1rem;
+  color: #222;
+  user-select: none;
 }
 
 /* Cabeçalhos internos */
@@ -90,7 +94,6 @@ form label {
   font-weight: 600;
   margin-bottom: 6px;
   color: #444;
-  user-select: none;
 }
 
 /* Inputs, datalists e textarea */
@@ -125,7 +128,7 @@ textarea:focus {
 
 /* Placeholder com cor mais escura */
 ::placeholder {
-  color: #999;
+  color: #666;
   font-weight: 400;
 }
 
@@ -143,6 +146,7 @@ button[type="submit"] {
   cursor: pointer;
   box-shadow: 0 6px 12px rgba(196, 0, 0, 0.45);
   transition: background-color 0.3s ease;
+  user-select: none;
 }
 
 button[type="submit"]:hover {
@@ -156,6 +160,7 @@ button[type="submit"]:hover {
   font-weight: 600;
   color: #c40000;
   min-height: 1.3rem;
+  user-select: none;
 }
 
 /* Responsividade iOS friendly */
@@ -205,6 +210,11 @@ textarea {
   min-height: 80px;
   font-family: inherit;
   line-height: 1.4;
+  color: #222;
+  background: #fafafa;
+  border: 1.8px solid #ddd;
+  border-radius: 10px;
+  padding: 12px 14px;
 }
 
 /* Scroll suave para inputs e body */

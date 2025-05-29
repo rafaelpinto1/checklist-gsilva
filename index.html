@@ -1,40 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Checklist GSilva</title>
   <script src="https://alcdn.msauth.net/browser/2.37.0/js/msal-browser.min.js"></script>
   <style>
-    body { font-family: Arial; padding: 20px; }
-    label { display: block; margin-top: 10px; }
-    input, select, button { margin-top: 5px; padding: 5px; width: 200px; }
-    #formChecklist { display: none; margin-top: 20px; }
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #2a4b7c;
+    }
+    #loginBtn {
+      background-color: #2a4b7c;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #formChecklist {
+      display: none;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 300px;
+      margin-top: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button[type="submit"] {
+      background-color: #28a745;
+      color: white;
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      width: 100%;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #status {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #444;
+    }
   </style>
 </head>
 <body>
 
   <h1>Checklist GSilva</h1>
 
-  <button id="loginBtn">Login Microsoft</button>
+  <button id="loginBtn">Login com Microsoft</button>
 
   <form id="formChecklist">
-    <label>Título: <input type="text" id="titulo" required></label>
-    <label>Motorista: <input type="text" id="motorista" required></label>
-    <label>Placa do Veículo: <input type="text" id="placa" required></label>
-    <label>Combustível OK:
-      <select id="combustivel">
-        <option value="Sim">Sim</option>
-        <option value="Não">Não</option>
-      </select>
-    </label>
-    <label>Pneus OK:
-      <select id="pneus">
-        <option value="Sim">Sim</option>
-        <option value="Não">Não</option>
-      </select>
-    </label>
-    <label>Data e Hora:
-      <input type="datetime-local" id="datahora" required>
-    </label>
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" required>
+
+    <label for="motorista">Motorista:</label>
+    <input type="text" id="motorista" required>
+
+    <label for="placa">Placa do Veículo:</label>
+    <input type="text" id="placa" required>
+
+    <label for="combustivel">Combustível OK:</label>
+    <select id="combustivel">
+      <option value="Sim">Sim</option>
+      <option value="Não">Não</option>
+    </select>
+
+    <label for="pneus">Pneus OK:</label>
+    <select id="pneus">
+      <option value="Sim">Sim</option>
+      <option value="Não">Não</option>
+    </select>
+
+    <label for="datahora">Data e Hora:</label>
+    <input type="datetime-local" id="datahora" required>
+
     <button type="submit">Enviar Checklist</button>
   </form>
 
@@ -50,20 +112,25 @@
     };
 
     const msalInstance = new msal.PublicClientApplication(msalConfig);
-    const loginRequest = { scopes: ["User.Read", "Sites.ReadWrite.All"] };
+    const loginRequest = {
+      scopes: ["User.Read", "Sites.ReadWrite.All"]
+    };
+
     let accessToken = "";
 
     document.getElementById("loginBtn").addEventListener("click", async () => {
       try {
         const loginResponse = await msalInstance.loginPopup(loginRequest);
+        msalInstance.setActiveAccount(loginResponse.account); // <- ESSENCIAL!
         const tokenResponse = await msalInstance.acquireTokenSilent(loginRequest);
         accessToken = tokenResponse.accessToken;
 
         document.getElementById("loginBtn").style.display = "none";
         document.getElementById("formChecklist").style.display = "block";
-        document.getElementById("status").innerText = "Login feito como: " + loginResponse.account.username;
+        document.getElementById("status").innerText = "Logado como: " + loginResponse.account.username;
       } catch (err) {
-        alert("Erro no login: " + err.message);
+        document.getElementById("status").innerText = "Erro no login: " + err.message;
+        console.error(err);
       }
     });
 
@@ -104,15 +171,16 @@
         });
 
         if (postResp.ok) {
-          document.getElementById("status").innerText = "Checklist enviado com sucesso!";
+          document.getElementById("status").innerText = "✅ Checklist enviado com sucesso!";
+          document.getElementById("formChecklist").reset();
         } else {
-          const err = await postResp.text();
-          document.getElementById("status").innerText = "Erro ao enviar: " + err;
-          console.error(err);
+          const error = await postResp.text();
+          document.getElementById("status").innerText = "❌ Erro ao enviar: " + error;
+          console.error(error);
         }
-      } catch (e) {
-        document.getElementById("status").innerText = "Erro inesperado: " + e.message;
-        console.error(e);
+      } catch (err) {
+        document.getElementById("status").innerText = "❌ Erro inesperado: " + err.message;
+        console.error(err);
       }
     });
   </script>

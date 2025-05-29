@@ -121,7 +121,7 @@
     document.getElementById("loginBtn").addEventListener("click", async () => {
       try {
         const loginResponse = await msalInstance.loginPopup(loginRequest);
-        msalInstance.setActiveAccount(loginResponse.account); // <- ESSENCIAL!
+        msalInstance.setActiveAccount(loginResponse.account);
         const tokenResponse = await msalInstance.acquireTokenSilent(loginRequest);
         accessToken = tokenResponse.accessToken;
 
@@ -163,8 +163,8 @@
               Title: dados.titulo,
               Motorista: dados.motorista,
               PlacaVeiculo: dados.placa,
-              CombustivelOk: dados.combustivel,
-              PneusOK: dados.pneus,
+              CombustivelOK: dados.combustivel,  // <- corrigido
+              PneusOK: dados.pneus,              // <- corrigido
               DataHora: dados.datahora
             }
           })

@@ -92,9 +92,6 @@
     <label for="data">Data da Inspeção (Data):</label>
     <input type="date" id="data" required />
 
-    <label for="horario">Horário da Inspeção (Horario):</label>
-    <input type="time" id="horario" required />
-
     <label for="placaSider">Placa do Sider (PlacaSider):</label>
     <input type="text" id="placaSider" required />
 
@@ -206,9 +203,6 @@
     <label for="observacoes">Observações Gerais (Observacoes):</label>
     <textarea id="observacoes" placeholder="Digite observações gerais..."></textarea>
 
-    <label for="assinaturaMotorista">Assinatura do Motorista (AssinaturaMotorista):</label>
-    <input type="text" id="assinaturaMotorista" placeholder="Nome ou assinatura digital" required />
-
     <button type="submit">Enviar Checklist</button>
   </form>
 
@@ -285,7 +279,6 @@
         ControlePragasValido: document.getElementById("controlePragasValido").value,
         VeiculoDedicadoControle: document.getElementById("veiculoDedicadoControle").value,
         Observacoes: document.getElementById("observacoes").value,
-        AssinaturaMotorista: document.getElementById("assinaturaMotorista").value
       };
 
       try {

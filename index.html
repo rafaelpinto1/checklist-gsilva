@@ -1,12 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Teste Login MSAL com botão</title>
+  <title>Checklist GSilva</title>
   <script src="https://alcdn.msauth.net/browser/2.37.0/js/msal-browser.min.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    label { display: block; margin-top: 10px; }
+    input, select, button { margin-top: 5px; padding: 5px; width: 200px; }
+    #formChecklist { display: none; margin-top: 20px; }
+  </style>
 </head>
 <body>
-  <h1>Teste Login Microsoft</h1>
+
+  <h1>Checklist GSilva</h1>
+
   <button id="loginBtn">Login Microsoft</button>
+
+  <form id="formChecklist">
+    <label>Título: <input type="text" id="titulo" required></label>
+    <label>Motorista: <input type="text" id="motorista" required></label>
+    <label>Placa do Veículo: <input type="text" id="placa" required></label>
+    <label>Combustível OK:
+      <select id="combustivel">
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+      </select>
+    </label>
+    <label>Pneus OK:
+      <select id="pneus">
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+      </select>
+    </label>
+    <label>Data e Hora:
+      <input type="datetime-local" id="datahora" required>
+    </label>
+    <button type="submit">Enviar Checklist</button>
+  </form>
+
+  <p id="status"></p>
 
   <script>
     const msalConfig = {
@@ -18,16 +50,72 @@
     };
 
     const msalInstance = new msal.PublicClientApplication(msalConfig);
-    const loginRequest = { scopes: ["User.Read"] };
+    const loginRequest = { scopes: ["User.Read", "Sites.ReadWrite.All"] };
+    let accessToken = "";
 
     document.getElementById("loginBtn").addEventListener("click", async () => {
       try {
         const loginResponse = await msalInstance.loginPopup(loginRequest);
-        alert("Login feito: " + loginResponse.account.username);
+        const tokenResponse = await msalInstance.acquireTokenSilent(loginRequest);
+        accessToken = tokenResponse.accessToken;
+
+        document.getElementById("loginBtn").style.display = "none";
+        document.getElementById("formChecklist").style.display = "block";
+        document.getElementById("status").innerText = "Login feito como: " + loginResponse.account.username;
       } catch (err) {
         alert("Erro no login: " + err.message);
       }
     });
+
+    document.getElementById("formChecklist").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const dados = {
+        titulo: document.getElementById("titulo").value,
+        motorista: document.getElementById("motorista").value,
+        placa: document.getElementById("placa").value,
+        combustivel: document.getElementById("combustivel").value,
+        pneus: document.getElementById("pneus").value,
+        datahora: document.getElementById("datahora").value
+      };
+
+      try {
+        const siteResp = await fetch("https://graph.microsoft.com/v1.0/sites/gsilvainfo.sharepoint.com:/sites/Ope", {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        });
+        const site = await siteResp.json();
+
+        const postResp = await fetch(`https://graph.microsoft.com/v1.0/sites/${site.id}/lists/ChecklistMotoristas/items`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            fields: {
+              Title: dados.titulo,
+              Motorista: dados.motorista,
+              PlacaVeiculo: dados.placa,
+              CombustivelOk: dados.combustivel,
+              PneusOK: dados.pneus,
+              DataHora: dados.datahora
+            }
+          })
+        });
+
+        if (postResp.ok) {
+          document.getElementById("status").innerText = "Checklist enviado com sucesso!";
+        } else {
+          const err = await postResp.text();
+          document.getElementById("status").innerText = "Erro ao enviar: " + err;
+          console.error(err);
+        }
+      } catch (e) {
+        document.getElementById("status").innerText = "Erro inesperado: " + e.message;
+        console.error(e);
+      }
+    });
   </script>
+
 </body>
 </html>
